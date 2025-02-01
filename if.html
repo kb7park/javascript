@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>if</title>
+</head>
+<body>
+    <script>
+        // let age= prompt('나이를 입력하세요');
+        // if(age<20){
+        //     console.log('학생입니다.');
+        // }else{
+        //     console.log('학생이 아닙니다.');
+        // }
+        //입력한 숫자가 3의 배수일 경우 1. 3의 배수입니다. 2. 3의 배수가 아닙니다.
+
+        // let num= prompt('숫자입력하세요');
+        // if(num % 3==0){
+        //     console.log('3의배수입니다.');
+        // }else{
+        //     console.log('3의 배수가 아닙니다.');
+        // }
+
+        let fruit=prompt('좋아하는 과일을 입력해주세요 단, 사과/배/파인애플 중 선택');
+        switch(fruit){
+            case '사과' 
+            : console.log('사과를 선택했습니다.');
+            break;
+            case '배'
+            : console.log('배를 선택했습니다.');
+            break;
+            case '파인애플'
+            : console.log('파인애플을 선택했습니다.');
+            break;
+            default:
+            console.log('사과,배,파인애플 중 선택해주세요!');
+            break;
+        }
+    </script>
+</body>
+</html>
