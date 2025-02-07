@@ -10,11 +10,21 @@
     <button class="btn1">버튼1</button>
     <button class="btn2">버튼2</button>
     <script>
-        let btn= $('button.btn1');
-        btn.click(function(){
-            let name= prompt('이름을 입력하세요.');
-            console.log(`${이름}님 환영합니다.`);
+        let btn1= $('button.btn1');
+        btn1.click(function(){
+            let name= prompt('이름을 입력하세요.','이름');
+            console.log(`${name}님 환영합니다.`);
         });
+        let btn2=$('button.btn2');
+        btn2.click(function(){
+            let num= prompt('숫자를 입력하세요.');
+            if(num%2==0){
+                alert("짝수입니다.");
+            }
+            else{
+                alert("홀수입니다.");
+            }
+        }) 
     </script>
 </body>
 </html>
