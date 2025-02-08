@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>math.html</title>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <h1>랜덤 숫자 맞추기!</h1>
+    <button class="start">시작!</button>
+    <input type="number" disabled>
+    <button class="check">체크!</button>
+    <h3>♥<span>10</span></h3>
+    <h4></h4>
+
+    <script>
+        // math.ramdom은 무조건 * 숫자 개수로 생각하면 됩니다.
+        // parseInt로 정수화 시킨 숫자 + 시작 숫자를 의미합니다.
+
+        // 준비물 
+        // 1. 입력 받는 input
+        // 2. 시작버튼 || 재도전 버튼 
+        // 3. 라이프 갯수를 알려주는 무언가???
+        //  4. 결과 메세지를 알수있는 무언가 
+
+
+
+        // 인터넷에서 게임을 만들거에요!
+        //  1부터 100까지 숫자를 생각해서 숫자를 맞추는 게임
+        // 도전 기회는 10번!
+        //  유저가 들어와서 시작 버튼 누른다 
+        // input 활성화 
+        // 1. 유저로 부터 입력받는다
+        // 2. 랜덤을 돌려준다
+        // 3. 1.번 2. 의 숫자를 비교한다
+        // 4. 랜덤 숫자보다 유저의 숫자가 크면 더 작은 숫자를 유도한다 
+        // 5. 랜덤 숫자보다 유저의 숫자가 크면 더 작은 큰 숫자를 유도한다
+        //  4,5 번이 한번씩 발생할때마다 life--
+        // 6. 숫자가 같다면 당첨!
+        //  7. 재 도전을 할 수 있는 버튼을 클릭한다.
+        let [num,life] = [0,10];
+
+        $('button.start').click(function(){
+            num = parseInt(Math.random()*100)+1;
+            $('input').attr('disabled',false);
+            $(this).attr('disabled',true);
+            // 기본세팅!
+            // 라이프 - 10으로 바꿔주고 
+            life= 10;
+            $('h3>span').text(life);  
+            // input 기존값 0으로 세팅 
+            $('input').val(0);
+            $('button.check').attr('disabled', false);
+            $('h4').text('');
+
+        });
+        $('button.check').click(function(){
+            let userNum =$('input').val()*1; 
+            console.log(`유저가 입력한 값 : ${userNum} 컴퓨터 값: ${num}` );
+            if(num> userNum){
+                $('h4').text('더 큰 수를 입력해주세요!');
+                life --;
+            }else if(num < userNum){
+                $('h4').text('더 작은 수를 입력해주세요!');
+                life --;
+            }else{
+                $('h4').text('정답입니다!');
+            }
+            $('h3>span').text(life);
+            // life가 0일때 더이상 게임을 할 수 없습니다 alert 출력
+            // input disabled로 세팅 하세요 + 체크버튼도 disabled
+            // 시작 버튼이 활성화 되면서 재도전이라고 바뀌게 해보세요
+            console.log(life);
+            if(life  === 0){
+                $('input').attr('disabled',true);
+                $('button.check').attr('disabled',true);
+                $('button.start').attr('disabled',false);
+                $('button.start').text('재도전');
+                $('h4').text('실패했습니다! 재도전 해주세요!');
+            }
+        });
+    </script>
+</body>
+</html>

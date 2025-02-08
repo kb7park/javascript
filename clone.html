@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <div class="wrap">
+        <h2>이 태그를 복제해봐요!</h2>
+        <h3>이 태그를 복제해봐요!</h3>
+    </div>
+    <script>
+        const h2=$('h2');
+        const h3=$('h3');
+        const wrap=$('.wrap');
+        let obj=[
+            {
+                name:'name',
+                id:'id'
+            
+            },
+            {
+                name:'name',
+                id:'id'
+            
+            },
+            {
+                name:'name',
+                id:'id'
+            
+            },
+        ];
+        obj.forEach(function(e){
+            //1.클론을 했어요!
+            //2.클론한걸 끼워넣고
+            //id에 대한 내용을 h2Clone의 내용으로 치환해서 넣으려면!!
+            let h2Clone=h2.clone();
+            let h3Clone=h3.clone();
+            h2Clone.text(e.id);
+            h3Clone.text(e.name);
+            wrap.append(h2Clone);
+            wrap.append(h3Clone);
+            //h3을 복제해서 name다음으로 id가 들어올 수 있도록 작업해보세요!!
+        })
+
+        console.log($('h2'));
+        h2.remove();
+        h3.remove();
+        
+        // for(let i=0;i<11;i++){
+        //     const h2Clone=h2.clone();
+        //     wrap.append(h2Clone);
+        // }
+        
+
+
+        
+
+    </script>
+</body>
+</html>
