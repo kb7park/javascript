@@ -108,12 +108,16 @@
         const todoList=$('.todo-list');
 
         btnAdd.click(function(){
-            let todoItem=$('.todo-item').first().clone();
+            let todoItem=$('.todo-item').first().clone(true);
             let val=$('input').val();
             todoItem.children('.todo-text').text(val);
             todoList.prepend(todoItem);
             
-        })
+        });
+
+        del.click(function(){
+            $(this)
+        });
     </script>
 
 </body>
