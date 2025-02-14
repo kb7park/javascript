@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fadeSlide2</title>
+    <style>
+        div.view{
+            width: 50%;
+            margin: 0 auto;
+            position: relative;
+            height: 500px;
+        }
+        div.slide{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 500px;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        div.slide.active{
+            opacity: 1;
+        }
+        div.slide.s1{
+            background-color: #f70606;
+
+        }
+        div.slide.s2{
+            background-color: #fca605;
+
+        }
+        div.slide.s3{
+            background-color: #f7fb04;
+
+        }
+        div.slide.s4{
+            background-color: #53fe04;
+
+        }
+        div.slide.s5{
+            background-color: #2104ff;
+
+        }
+        div.btns{
+            width: 100%;
+            position: absolute;
+            /* absolute에서 가운데 주는 방법은 부모요소 기준의 높이가 있고 뜯어서 붙일때 기준의 높이가 있어야
+            하고 마진을 auto로 주고 top 0 bottom 0::위아래 가운데 left 0 right 0::좌우가운데  */
+            margin: auto;
+            top: 0;
+            bottom: 0;
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button{
+            display: block;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            border: 0;
+            background-color: transparent;
+            cursor: pointer;
+        }
+    </style>
+    <script src="./jquery.js"></script>
+</head>
+<body>
+    <div class="view">
+        <div class="slide s1 active">슬라이드1</div>
+        <div class="slide s2">슬라이드2</div>
+        <div class="slide s3">슬라이드3</div>
+        <div class="slide s4">슬라이드4</div>
+        <div class="slide s5">슬라이드5</div>
+        <div class="btns">
+            <button class="prev">👈</button>
+            <button class="next">👉</button>
+        </div>
+    </div>
+    <script>
+        const btns=$('.btns');
+        const slides=$('.slide');
+        let idx=0;
+
+        btns.click(function(){
+            let left=$(this).hasClass('prev');
+            if(left){
+                ldx--;
+            }else{
+                idx++;
+            }
+            idx=idx%slides.length;
+            
+
+            slides.removeClass('active');
+            slides.eq(idx).addClass('active');
+            
+        })
+    </script>
+    
+</body>
+</html>

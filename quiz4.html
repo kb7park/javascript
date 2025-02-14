@@ -155,6 +155,8 @@
       let que=$('.question-item');
       const ans=$('.answer-item');
       const list=$('.quiz-list');
+      let submit=$('.submit-btn');
+      const hint=$('.hint');
 
       quiz.forEach(function(e,i){
         let qu=que.clone();
@@ -176,7 +178,7 @@
 
       });
 
-      hink.click(function(){
+      hint.click(function(){
         let ind=$(this).parent().attr('num-data');
         let ans=quiz[ind].answer;
         let inp=$(this).prevAll('.answer-input');
