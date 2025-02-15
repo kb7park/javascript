@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .slideWrap{
+            width: 50%;
+            margin: 0 auto;
+            outline: 5px solid red;
+            position: relative;
+        }
+        .slideGr{
+            width: 400%;
+            display: flex;
+        }
+        .slideGr li{
+            width: calc(100% / 12);
+            height: 250px;
+            line-height: 250px;
+            font-size: 72px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        .btns{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            position: absolute;
+            height: 50px;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+        }
+        .btns>div{
+            cursor: pointer;
+            line-height: 50px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slideWrap">
+        <ul class="slideGr">
+            <li>012</li>
+            <li>01</li>
+            <li>02</li>
+            <li>03</li>
+            <li>04</li>
+            <!-- <li>05</li>
+            <li>06</li>
+            <li>07</li>
+            <li>08</li>
+            <li>09</li>
+            <li>010</li>
+            <li>011</li> -->
+        </ul>
+        <div class="btns">
+            <div class="left">👈</div>
+            <div class="right">👉</div>
+        </div>
+    </div>
+    <script>
+        let slideGr=$('.slideGr');
+        let btns=$('.btns>div');
+        slideGr.css('margin-left','-33.33%');
+        //왼쪽버튼을 클릭했을때, 2번이제일 앞에 보여질 수 있도록 animate를 사용해서 슬라이드를 구현해보세요.
+
+        btns.click(function(){
+            let left=$(this).hasClass('left');
+            if(left){
+                slideGr.animate({
+                    marginLeft:'-66.66%'
+                },500,function(){
+                    let art=slideGr.children().first();
+                    slideGr.append(art);
+                    slideGr.css({marginLeft:'-33.33%'});
+                });
+            }else{
+                slideGr.animate({
+                    marginLeft:'0%'
+                },500,function(){
+                    let art=slideGr.children().last();
+                    slideGr.prepend(art);
+                    slideGr.css({marginLeft:'-33.33%'});
+                })
+                
+                
+                
+            }
+        });
+
+
+        
+
+    </script>
+    
+</body>
+</html>
