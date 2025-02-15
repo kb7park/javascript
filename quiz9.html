@@ -150,66 +150,57 @@
         {question: 'jQuery에서 dom탐색을 할 수있는 함수 표시는?', answer: '$'},
         {question: '콘솔에 출력하는 함수는?', answer: 'console.log'}
       ];
-        let que=$('.question-item');
-        const ans=$('.answer-item');
-        const list=$('.quiz-list');
-        let submit=$('.submit-btn');
-        const hint=$('.hint');
+      let que=$('.question-item');
+      const ans=$('.answer-item');
+      const list=$('.quiz-list');
+      let submit=$('.submit-btn');
+      const hint=$('.hint');
 
-        que.click(function(){
-            let state=$(this).hasClass('disabled');
-            if(!state){
-                $(this).toggleClass('active');
-            }
-        });
+      que.click(function(){
+        let state=$(this).hasClass('disabled');
+        if(!state){
+            $(this).toggleClass('active');
+        }
+      });
 
-        hint.click(function(){
-            let ind=$(this).parent().attr('num-data');
-            let ans=quiz[ind].answer;
-            let inp=$(this).prevAll('.answer-input');
-            inp.attr(`placeholder`, ans);
-        });
+      hint.click(function(){
+        let ind=$(this).parent().attr('num-data');
+        let ans=quiz[ind].answer;
+        let inp=$(this).prevAll('.answer-input');
+        inp.attr(`placeholder`, ans);
+      });
 
-        quiz.forEach(function(e,i){
-            let qu=que.clone(true);
-            let an=ans.clone(true);
+      quiz.forEach(function(e,i){
+        let qu=que.clone(true);
+        let an=ans.clone(true);
 
-            //Q ${i}.${퀴즈질문} 형식으로 텍스트가 들어오도록 세팅하기
-            qu.text(`Q${i+1}.${e.question}`);
-            qu.addClass('disabled');
-            an.attr(`num-data`,i);
+        qu.text(`Q${i+1}.${e.question}`);
+        qu.addClass('disabled');
+        an.attr(`num-data`,i);
 
-            list.append(qu);
-            list.append(an);
-        });
-            que.remove();
-            ans.remove();
+        list.append(qu);
+        list.append(an);
+      });
+      que.remove();
+      ans.remove();
 
-            que=$('.question-item');
-            que.first().removeClass('disabled');
+      que=$('.question-item');
+      que.first().removeClass('disabled');
 
-        submit=$('.submit-btn');
-        submit.click(function(){
-            let nowVal=$(this).prev().val();
-            let ind=$(this).parent().attr(`num-data`,i);
-            let ans=quiz[ind].answer;
-            if(nowVal===ans){
-                $(this).text("✅");
-                $(this).parent().next().removeClass('disabled');
-                que.removeClass('active');
-                $(this).parnet().next().addClass('active');
-            }else{
-                $(this).text("✖️");
-            }
-        });
-
-
-
-
-
-
-
-
+      submit=$('.submit-btn');
+      submit.click(function(){
+        let nowVal=$(this).prev().val();
+        let ind=$(this).parent().attr(`num-data`,i);
+        let ans=quiz[ind].answer;
+        if(nowVal===ans){
+            $(this).text("✅");
+            $(this).parent().next().removeClass('disabled');
+            que.removeClass('active');
+            $(this).parent().next().addClass('active');
+        }else{
+            $(this).text("✖️");
+        }
+      });
       </script>
     
 </body>
