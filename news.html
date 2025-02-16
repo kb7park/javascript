@@ -132,28 +132,39 @@
             { title: "신재생 에너지의 미래", detail: "전 세계가 탄소 중립 목표를 달성하기 위해 신재생 에너지 개발에 박차를 가하고 있습니다. 태양광과 풍력 에너지는 지속적으로 효율성이 개선되며 기존 화석 연료를 대체할 가능성이 커지고 있습니다. 하지만, 에너지 저장 기술과 인프라 구축 문제를 해결하지 않으면 신재생 에너지의 안정적인 공급이 어렵다는 지적도 나오고 있습니다.", img: "./image/slide9.jpg" },
             { title: "휴머노이드 로봇의 상용화", detail: "최근 휴머노이드 로봇이 다양한 산업 분야에서 도입되면서 상용화가 가속화되고 있습니다. 제조업과 서비스업에서 인간을 보조하는 역할을 하고 있으며, AI와 결합하여 더욱 정교한 작업을 수행할 수 있게 되었습니다. 하지만, 로봇이 인간의 일자리를 대체할 가능성에 대한 우려도 커지고 있으며, 이에 대한 사회적 논의가 필요합니다.", img: "./image/slide10.jpg" }
         ];
+        
         //html에서 <article>전체를 복제한 뒤 news의 개수만큼 추가해보세요. .card안에 추가하시면 됩니다.
         let card=$('.card');
-        let art=$('.article');
+        let art=$('article');
         let btns=$('.card-nav button');
         let contianer=$('.card-container');
         let ind=0;
-        
+        let pg=$('.pg');
+        let like=$('.like');
+        like.click(function(){
+        $(this).toggleClass('show');
+        let show = $(this).hasClass('show');
+        if(show){
+            $(this).text('★');
+        }else{
+            $(this).text('☆');
+        }
+        });
         news.forEach(function(e){
             let art2 = art.clone(true);
             art2.children('h2').text(e.title);
             art2.children('p').text(e.detail);
-            art2.children('img').attr('src',e.i);
+            art2.children('img').attr('src',e.img);
             card.append(art2);
-
         });
+
         art.remove();
         card.css('width',`${news.length*100}%`);
         card.animate({marginLeft: `${ind* -100}%`}, 500);
-            pg.children('span').last().text(news.length);
+        pg.children('span').last().text(news.length);
         
-        btns.click(function(){
-            let left=$(this).hasClass('prev');
+
+        function slide(left){
             if(left){
                 if(ind > 0){
                     ind--;
@@ -163,15 +174,24 @@
                     ind++;
                 }
             }
-            card.animate({marginLeft: `${ind* -100}%`}, 500);
+            card.stop().animate({marginLeft: `${ind* -100}%`}, 500);
             pg.children('span').first().text(ind+1);
+        }
+        
+        btns.click(function(){
+            let left=$(this).hasClass('prev');
+            slide(left);
         });
 
     contianer.on('swipeleft',function(){
-        alert('left!!!');
+        slide(false);
+    });
+    contianer.on('swiperight',function(){
+        slide(true);
+    });
+    
 
-    })
-            
+
 
         
 
