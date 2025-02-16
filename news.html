@@ -157,31 +157,54 @@
             art2.children('img').attr('src',e.img);
             card.append(art2);
         });
-
         art.remove();
+
+        //무한루프 세팅
+        // 클론한 article재탐색
+        art=$('article');
+        card.prepend(art.last());
+        card.css('marginLeft','-100%');
+
+
         card.css('width',`${news.length*100}%`);
-        card.animate({marginLeft: `${ind* -100}%`}, 500);
+        // card.animate({marginLeft: `${ind* -100}%`}, 500);
         pg.children('span').last().text(news.length);
         
 
-        function slide(left){
-            if(left){
-                if(ind > 0){
-                    ind--;
-                }
-            }else{
-                if(ind<news.length-1){
-                    ind++;
-                }
-            }
-            card.stop().animate({marginLeft: `${ind* -100}%`}, 500);
-            pg.children('span').first().text(ind+1);
-        }
+        // function slide(left){
+        //     if(left){
+        //         if(ind > 0){
+        //             ind--;
+        //         }
+        //     }else{
+        //         if(ind<news.length-1){
+        //             ind++;
+        //         }
+        //     }
+        //     card.stop().animate({marginLeft: `${ind* -100}%`}, 500);
+        //     pg.children('span').first().text(ind+1);
+        // }
+        
         
         btns.click(function(){
             let left=$(this).hasClass('prev');
-            slide(left);
+            art=$('article');
+            // slide();
+            if(left){
+                card.animate({marginLeft:0},500,function(){
+                    card.prepend(art.last());
+                    card.css('marginLeft','-100%');
+                });
+                
+            }else{
+                card.animate({marginLeft:'-200%'},500,function(){
+                    card.append(art.first());
+                    card.css('marginLeft','-100%');
+                })
+
+            }
         });
+        
 
     contianer.on('swipeleft',function(){
         slide(false);
