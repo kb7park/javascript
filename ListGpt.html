@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .ul {
+            list-style: none;
+            padding: 0;
+        }
+        .li {
+            background: #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .buttons {
+            display: flex;
+            gap: 5px;
+        }
+        .todoList-list input{
+            width:150px;
+            background-color: white;
+        }
+        .todoList-list input.disabled{
+            border: none;
+            width:150px;
+            background-color: transparent;
+        }
+        .buttons button {
+            background: #ff5c5c;
+            border: none;
+            color: white;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .buttons .edit {
+            background: #4caf50;
+        }
+        .add-task {
+            display: flex;
+            margin-top: 10px;
+        }
+        .add-task input {
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .add-task button {
+            background: #008cba;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>To-Do List</h2>
+        <ul class="todoList-list">
+            <li class="list">
+                <input type="text"value="샘플 할 일" disabled></input>
+                <div class="buttons">
+                    <button class="edit">수정</button>
+                    <button class="remove">삭제</button>
+                </div>
+            </li>
+        </ul>
+        <div class="add-task">
+            <input class="text" placeholder="새 작업 추가...">
+            <button class="plus">추가</button>
+        </div>
+    </div>
+
+    <script>
+        let add =document.querySelector('.plus');
+        let inp=document.querySelector('.text');
+        let itm=document.querySelector('.list');
+        let lst=document.querySelector('.todoList-list');
+        
+        let editOrremove=function(state, dom, self){
+            if(state==='remove'){
+                dom.remove();
+            }else{
+                dom.disabled=false;
+                if(self==='확인'){
+                    dom.disabled;
+                }else{
+                    let st=self.innerText;
+                    if(st==='확인'){
+                        dom.disabled=true;
+                        self.innerText='수정';
+                    }else{
+                        dom.disabled=false;
+                        this.innerText='확인';
+                    }
+                }
+
+            }
+        }
+        add.addEventListener('click',function(){
+            let val=inp.value;
+            let onoff= val=='';
+            if(!onoff){
+                let newItem=itm.cloneNode(true);//자식요소 복제
+                let txt=newItem.querySelector('.input');
+                txt.value= '';
+                lst.append(newItem);
+                inp.value=val;
+                let edit=newItem.querySelector('.edit');
+                let remove=newItem.querySelector('.remove');
+                edit.addEventListener('click',function(){
+                    editOrremove('edit',txt, this);
+                    mod.innerText='확인';
+                });
+                remove.addEventListener('click',function(){
+                    editOrremove('remove',newItem);
+                });
+            }
+        });
+
+        itm.remove();
+
+
+
+
+        
+    </script>
+</body>
+</html>

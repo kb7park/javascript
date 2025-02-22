@@ -141,6 +141,7 @@
         let ind=0;
         let pg=$('.pg');
         let like=$('.like');
+        let flag= false;
         like.click(function(){
         $(this).toggleClass('show');
         let show = $(this).hasClass('show');
@@ -150,10 +151,11 @@
             $(this).text('☆');
         }
         });
-        news.forEach(function(e){
+        news.forEach(function(e,i){
             let art2 = art.clone(true);
             art2.children('h2').text(e.title);
             art2.children('p').text(e.detail);
+            art2.attr('data-idx',i+1);
             art2.children('img').attr('src',e.img);
             card.append(art2);
         });
@@ -189,17 +191,29 @@
         btns.click(function(){
             let left=$(this).hasClass('prev');
             art=$('article');
+            let now=0;
             // slide();
             if(left){
+                if(!flag){
+                    now=$('.article').eq(0).attr('data-idx');
+                    pg.children('span').first().text(now);
+                    flag=true;
+                }
                 card.animate({marginLeft:0},500,function(){
                     card.prepend(art.last());
                     card.css('marginLeft','-100%');
+                    flag=true;
                 });
-                
             }else{
+                if(!flag){
+                    now=$('.article').eq(2).attr('data-idx');
+                    pg.children('span').first().text(now);
+                    flag=false;
+                }
                 card.animate({marginLeft:'-200%'},500,function(){
                     card.append(art.first());
                     card.css('marginLeft','-100%');
+                    flag=false;
                 })
 
             }

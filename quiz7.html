@@ -150,58 +150,102 @@
         {question: 'jQuery에서 dom탐색을 할 수있는 함수 표시는?', answer: '$'},
         {question: '콘솔에 출력하는 함수는?', answer: 'console.log'}
       ];
-
-      let que=$('.question-item');
-      const ans=$('answer-item');
-      const list=$('.quiz-list');
-      let submit=$('.submit-btn');
-      const hint=$('.hint');
-
-      que.click(function(){
-        let state=$(this).hasClass('disabled');
-        if(!state){
-            $(this).toggleClass('active');
-        }
-      });
-
-      hint.click(function(){
-        let ind=$(this).parent().attr('num-data');
-        let ans=quiz[ind].answer;
-        let inp=$(this).prevAll('.answer-input');
-        inp.attr(`place-holder`,ans);
-      });
+      let qList=document.querySelector('.quiz-list');
+      let qCon=document.querySelector('.quiz-container');
+      let btn=document.querySelector('.submit-btn');
 
       quiz.forEach(function(e,i){
-        let qu=que.clone(true);
-        let an=ans.clone(true);
-
-        qu.text(`Q${i+1}.${e.question}`);
-        qu.addClass('disabled');
-        an.attr(`num-data`,i);
-
-        list.append(qu);
-        list.append(an);
+        let list=qList.cloneNode(true);
+        let title=list.querySelector('.question-item');
+        let ans=list.querySelector('.answer-input');
+        ans.setAttribute('data-ans',e.answer);
+        title.className +=' disabled';
+        title.innerText=`Q${i+1}.${e.question}`;
+        qCon.append(list);
       });
+      qList.remove();
+      qList=document.querySelectorAll('.quiz-list');
+      let fList=qList[0].children[0];
+      fList.classList.remove('disabled');
+      fList.className+=' active';
 
-      submit=$('.submit-btn');
-      submit.click(function(){
-        let nowVal=$(this).prev().val();
-        let ind=$(this).parent().attr('num-data');
-        let ans=quiz[ind].answer;
-        if(nowVal===ans){
-            $(this).text("✅");
-            $(this).parent().next().removeClass('disabled');
-            que.removeClass('active');
-            $(this).parent().next().addClass('active');
-        }else{
-            $(this).text("✖️");
-        }
-        que.remove();
-        ans.remove();
+      btn=document.querySelectorAll('.submit-btn');
 
-        que=$('.question-item');
-        que.first().removeClass('disabled');
+      btn.forEach(function(btn){
+        btn.addEventListener('click',function(){
+          let inpAns=this.previousElementSibling.value;
+          let reAns=this.previousElementSibling.getAttribute('data-ans');
+          let next=this.parentNode.parentNode.nextElementSibling;
+          let nextTitle=next.querySelector('.question-item');
+          let up=this.parentNode.previousElementSibling;
+          if(inpAns===reAns){
+            this.innerText='✅';
+            nextTitle.classList.remove('disabled');
+            nextTitle.className+=' active';
+
+            up.classList.remove('active');
+          }else{
+            this.innerText='✖️';
+            this.className+=' err';
+          }
+        })
       })
+
+      
+
+      
+
+      // let que=$('.question-item');
+      // const ans=$('answer-item');
+      // const list=$('.quiz-list');
+      // let submit=$('.submit-btn');
+      // const hint=$('.hint');
+
+      // que.click(function(){
+      //   let state=$(this).hasClass('disabled');
+      //   if(!state){
+      //       $(this).toggleClass('active');
+      //   }
+      // });
+
+      // hint.click(function(){
+      //   let ind=$(this).parent().attr('num-data');
+      //   let ans=quiz[ind].answer;
+      //   let inp=$(this).prevAll('.answer-input');
+      //   inp.attr(`place-holder`,ans);
+      // });
+
+      // quiz.forEach(function(e,i){
+      //   let qu=que.clone(true);
+      //   let an=ans.clone(true);
+
+      //   qu.text(`Q${i+1}.${e.question}`);
+      //   qu.addClass('disabled');
+      //   an.attr(`num-data`,i);
+
+      //   list.append(qu);
+      //   list.append(an);
+      // });
+
+      // submit=$('.submit-btn');
+      // submit.click(function(){
+      //   let nowVal=$(this).prev().val();
+      //   let ind=$(this).parent().attr('num-data');
+      //   let ans=quiz[ind].answer;
+      //   if(nowVal===ans){
+      //       $(this).text("✅");
+      //       $(this).parent().next().removeClass('disabled');
+      //       que.removeClass('active');
+      //       $(this).parent().next().addClass('active');
+      //   }else{
+      //       $(this).text("✖️");
+      //   }
+      //   que.remove();
+      //   ans.remove();
+
+      //   que=$('.question-item');
+      //   que.first().removeClass('disabled');
+      // })
 
 
       </script>
