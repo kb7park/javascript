@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock Paper Scissors Game</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Gaegu&display=swap");
+      body {
+        font-family: "Gaegu", sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: #ffebcd;
+      }
+
+      h1 {
+        margin-top: 20px;
+        color: #ff69b4;
+        text-shadow: 2px 2px 3px #ffa07a;
+      }
+
+      .scoreboard {
+        margin: 20px 0;
+        font-size: 1.2em;
+        color: #4b0082;
+      }
+
+      .game-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .computer-choice {
+        margin: 20px 0;
+      }
+
+      .computer-choice img {
+        width: 150px;
+        height: 150px;
+        border: 4px solid #ff69b4;
+        border-radius: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .buttons {
+        margin-top: 20px;
+        display: flex;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .buttons button {
+        width: calc(100% / 3);
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        background-color: #f7f7f7;
+        color: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, background-color 0.2s;
+        font-size: 0;
+      }
+      button img {
+        width: 100%;
+      }
+
+      .buttons button:hover {
+        border: 4px solid #ff69b4;
+        transform: scale(1.1);
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 1.5em;
+        color: #ff69b4;
+        text-shadow: 1px 1px 3px #ffa07a;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>가위 바위 보</h1>
+
+    <div class="scoreboard">
+      <p>내 점수: <span id="player-score">0</span></p>
+      <p>컴퓨터 점수: <span id="computer-score">0</span></p>
+    </div>
+
+    <div class="game-container">
+      <div class="computer-choice">
+        <img id="computer-image" src="./image/가위.jpg" alt="Computer's Choice" />
+      </div>
+
+      <div class="buttons">
+        <button id="rock">바위<img src="./image/바위.jpg" alt="" /></button>
+        <button id="paper">보<img src="./image/보.jpg" alt="" /></button>
+        <button id="scissors">가위<img src="./image/가위.jpg" alt="" /></button>
+        <button id="refresh">새로고침<img src="./image/ref.jpg" alt="" /></button>
+      </div>
+    </div>
+
+    <div class="result" id="result">
+      <!-- 결과가 여기에 표시됨 -->
+    </div>
+    <script>
+        let com=['가위','바위','보'];
+        let ch=parseInt(Math.random()*3);
+        let mn=document.querySelector('#computer-image');
+        let cnt=0;
+        let btn=document.querySelectorAll('button');
+        let msg=document.querySelector('.result');
+        let score=0;
+        let scoreC=0;
+        let pl=document.querySelector('#player-score');
+        let cl=document.querySelector('#computer-score');
+
+
+        //컴퓨터가 낸걸로 바꾸는 방법
+        mn.setAttribute('src',`./image/${com[ch]}.jpg`);
+        let imgs = setInterval(function(){
+            cnt++;
+            cnt=cnt%3;
+            mn.setAttribute('src',`./image/${com[cnt]}.jpg`);
+        },200);
+
+        function newGame(){
+            ch=parseInt(Math.random()*3);
+            cnt=0;
+            imgs = setInterval(function(){
+            cnt++;
+            cnt=cnt%3;
+            mn.setAttribute('src',`./image/${com[cnt]}.jpg`);
+        },200);
+        }
+
+        btn.forEach(function(e){
+            e.addEventListener('click',function(){
+                if(this.id!='refresh'){
+                clearInterval(imgs);
+                let cu = com[ch];
+                let me=this.innerText;
+                    //멈췄을때, mn에 컴퓨터가 선택한 이미지가 나오도록
+                    mn.setAttribute('src',`./image/${cu}.jpg`);
+
+
+                if(me===cu){
+                    msg.innerText='비겼습니다.'
+                    // console.log('비겼습니다.');
+                }else{
+                    if(
+                        (me==='가위'&&cu==='보')
+                        ||
+                        (me==='바위'&&cu==='가위')
+                        ||
+                        (me==='보'&&cu==='바위')){
+                            msg.innerText='이겼습니다.'
+                            score++;
+                        }else{
+                            msg.innerText='졌습니다.'
+                            scoreC++;
+                        }
+
+                    
+
+                }
+                pl.innerText=score;
+                cl.innerText=scoreC;
+            }
+            else{
+                clearInterval(imgs);
+                newGame();
+                msg.innerText="";
+            }
+        })
+
+
+        })
+            
+
+    </script>
+  </body>
+</html>
